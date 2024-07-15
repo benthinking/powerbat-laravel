@@ -18,7 +18,14 @@ class OrderController extends Controller
     ) {}
 
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/api/orders",
+     *     summary="Get list of orders",
+     *     tags={"Orders"},
+     *     security={{"passport":{}}},
+     *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(response=401, description="Unauthorized Access")
+     * )
      */
     public function index()
     {
@@ -26,7 +33,34 @@ class OrderController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *     path="/api/orders",
+     *     summary="Create a order",
+     *     tags={"Orders"},
+     *     security={{"passport":{}}},
+     *     @OA\RequestBody(
+     *          required=true,
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *              @OA\Schema(
+     *                  type="object",
+     *                  @OA\Property(
+     *                      property="name",
+     *                      type="string",
+     *                      example="Ben Order"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="status",
+     *                      type="string",
+     *                      example=1,
+     *                      description="Status of the point. 1 or 0"
+     *                  )
+     *              )
+     *          )
+     *     ),
+     *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(response=401, description="Unauthorized Access")
+     * )
      */
     public function store(Request $request)
     {
@@ -35,7 +69,23 @@ class OrderController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *     path="/api/orders/{id}",
+     *     summary="Show details of an order",
+     *     tags={"Orders"},
+     *     security={{"passport":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         ),
+     *         description="Id of the order to update"
+     *     ),
+     *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(response=401, description="Unauthorized Access")
+     * )
      */
     public function show($id)
     {
@@ -43,7 +93,47 @@ class OrderController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\Put(
+     *     path="/api/orders/{id}",
+     *     summary="Update an order",
+     *     tags={"Orders"},
+     *     security={{"passport":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         ),
+     *         description="Id of the order to update"
+     *     ),
+     *     @OA\RequestBody(
+     *          required=true,
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *               @OA\Schema(
+     *                  oneOf={
+     *                      @OA\Schema(
+     *                          type="object",
+     *                          @OA\Property(
+     *                              property="name",
+     *                              type="string",
+     *                              example="Ben Order"
+     *                          ),
+     *                          @OA\Property(
+     *                              property="status",
+     *                              type="string",
+     *                              example=1,
+     *                              description="Status of the order. 1 or 0"
+     *                          )
+     *                     )
+     *                 }
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(response=401, description="Unauthorized Access")
+     * )
      */
     public function update(Request $request, $id)
     {
@@ -51,7 +141,23 @@ class OrderController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *     path="/api/orders/{id}",
+     *     summary="Delete an order",
+     *     tags={"Orders"},
+     *     security={{"passport":{}}},
+     *     @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          ),
+     *          description="Id of the order to delete"
+     *     ),
+     *     @OA\Response(response=200, description="Successful deleted"),
+     *     @OA\Response(response=401, description="Unauthorized Access")
+     * )
      */
     public function destroy($id)
     {

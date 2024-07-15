@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PointController;
 use App\Http\Controllers\DeviceController;
 
@@ -47,4 +48,13 @@ Route::controller(DeviceController::class)->group(function () {
     Route::put('/devices/{id}', 'update');
     Route::delete('/devices/{id}', 'destroy');
 });
+
+Route::controller(OrderController::class)->group(function () {
+    Route::get('/orders', 'index');
+    Route::post('/orders', 'store');
+    Route::get('/orders/{id}', 'show');
+    Route::put('/orders/{id}', 'update');
+    Route::delete('/orders/{id}', 'destroy');
+});
+
 

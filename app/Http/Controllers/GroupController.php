@@ -18,7 +18,14 @@ class GroupController extends Controller
     ) {}
 
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/api/groups",
+     *     summary="Get list of groups",
+     *     tags={"Groups"},
+     *     security={{"passport":{}}},
+     *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(response=401, description="Unauthorized Access")
+     * )
      */
     public function index()
     {
@@ -26,7 +33,34 @@ class GroupController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *     path="/api/groups",
+     *     summary="Create a group",
+     *     tags={"Groups"},
+     *     security={{"passport":{}}},
+     *     @OA\RequestBody(
+     *          required=true,
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *              @OA\Schema(
+     *                  type="object",
+     *                  @OA\Property(
+     *                      property="name",
+     *                      type="string",
+     *                      example="Ben Group"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="status",
+     *                      type="string",
+     *                      example=1,
+     *                      description="Status of the point. 1 or 0"
+     *                  )
+     *              )
+     *          )
+     *     ),
+     *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(response=401, description="Unauthorized Access")
+     * )
      */
     public function store(Request $request)
     {
@@ -35,7 +69,23 @@ class GroupController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *     path="/api/groups/{id}",
+     *     summary="Show details of a group",
+     *     tags={"Groups"},
+     *     security={{"passport":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         ),
+     *         description="Id of the order to update"
+     *     ),
+     *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(response=401, description="Unauthorized Access")
+     * )
      */
     public function show($id)
     {
@@ -43,7 +93,47 @@ class GroupController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\Put(
+     *     path="/api/groups/{id}",
+     *     summary="Update a group",
+     *     tags={"Groups"},
+     *     security={{"passport":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         ),
+     *         description="Id of the group to update"
+     *     ),
+     *     @OA\RequestBody(
+     *          required=true,
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *               @OA\Schema(
+     *                  oneOf={
+     *                      @OA\Schema(
+     *                          type="object",
+     *                          @OA\Property(
+     *                              property="name",
+     *                              type="string",
+     *                              example="Ben Group"
+     *                          ),
+     *                          @OA\Property(
+     *                              property="status",
+     *                              type="string",
+     *                              example=1,
+     *                              description="Status of the group. 1 or 0"
+     *                          )
+     *                     )
+     *                 }
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(response=401, description="Unauthorized Access")
+     * )
      */
     public function update(Request $request, $id)
     {
@@ -51,7 +141,23 @@ class GroupController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *     path="/api/groups/{id}",
+     *     summary="Delete a group",
+     *     tags={"Groups"},
+     *     security={{"passport":{}}},
+     *     @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          ),
+     *          description="Id of the order to delete"
+     *     ),
+     *     @OA\Response(response=200, description="Successful deleted"),
+     *     @OA\Response(response=401, description="Unauthorized Access")
+     * )
      */
     public function destroy($id)
     {

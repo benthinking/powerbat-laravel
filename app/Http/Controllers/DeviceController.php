@@ -18,7 +18,14 @@ class DeviceController extends Controller
     ) {}
 
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/api/devices",
+     *     summary="Get list of devices",
+     *     tags={"Devices"},
+     *     security={{"passport":{}}},
+     *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(response=401, description="Unauthorized Access")
+     * )
      */
     public function index()
     {
@@ -26,7 +33,34 @@ class DeviceController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *     path="/api/devices",
+     *     summary="Create a device",
+     *     tags={"Devices"},
+     *     security={{"passport":{}}},
+     *     @OA\RequestBody(
+     *          required=true,
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *              @OA\Schema(
+     *                  type="object",
+     *                  @OA\Property(
+     *                      property="name",
+     *                      type="string",
+     *                      example="Ben Device"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="status",
+     *                      type="string",
+     *                      example=1,
+     *                      description="Status of the device. 1 or 0"
+     *                  )
+     *              )
+     *          )
+     *     ),
+     *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(response=401, description="Unauthorized Access")
+     * )
      */
     public function store(Request $request)
     {
@@ -35,7 +69,23 @@ class DeviceController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *     path="/api/devices/{id}",
+     *     summary="Show details of a device",
+     *     tags={"Devices"},
+     *     security={{"passport":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         ),
+     *         description="Id of the device to update"
+     *     ),
+     *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(response=401, description="Unauthorized Access")
+     * )
      */
     public function show($id)
     {
@@ -43,7 +93,47 @@ class DeviceController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\Put(
+     *     path="/api/devices/{id}",
+     *     summary="Update a device",
+     *     tags={"Devices"},
+     *     security={{"passport":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         ),
+     *         description="Id of the device to update"
+     *     ),
+     *     @OA\RequestBody(
+     *          required=true,
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *               @OA\Schema(
+     *                  oneOf={
+     *                      @OA\Schema(
+     *                          type="object",
+     *                          @OA\Property(
+     *                              property="name",
+     *                              type="string",
+     *                              example="Ben Device"
+     *                          ),
+     *                          @OA\Property(
+     *                              property="status",
+     *                              type="string",
+     *                              example=1,
+     *                              description="Status of the device. 1 or 0"
+     *                          )
+     *                     )
+     *                 }
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(response=401, description="Unauthorized Access")
+     * )
      */
     public function update(Request $request, $id)
     {
@@ -51,7 +141,23 @@ class DeviceController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *     path="/api/devices/{id}",
+     *     summary="Delete a device",
+     *     tags={"Devices"},
+     *     security={{"passport":{}}},
+     *     @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          ),
+     *          description="Id of the device to delete"
+     *     ),
+     *     @OA\Response(response=200, description="Successful deleted"),
+     *     @OA\Response(response=401, description="Unauthorized Access")
+     * )
      */
     public function destroy($id)
     {

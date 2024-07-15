@@ -32,6 +32,10 @@ class PointRepository implements PointRepositoryInterface
 
     public function update(array $data , $id)
     {
+        if(isset($data['meta'])){
+            $data['meta'] = json_encode($data['meta']);
+        }
+        
        return tap($this->model->findOrFail($id))->update($data);
     }
 
