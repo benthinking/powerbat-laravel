@@ -9,7 +9,7 @@ use App\Http\Controllers\GroupController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PointController;
 use App\Http\Controllers\DeviceController;
-
+use App\Http\Controllers\TicketStatusController;
 
 Route::post('register' , [AuthController::class , 'register']);
 Route::post('login' , [AuthController::class , 'login']);
@@ -62,4 +62,9 @@ Route::controller(OrderController::class)->middleware('client')->group(function 
     Route::delete('/orders/{id}', 'destroy');
 });
 
+
+Route::controller(TicketStatusController::class)->middleware('client')->group(function () {
+    Route::get('/ticket/statuses', 'index');
+    Route::get('/ticket/statuses/{value}', 'show');
+});
 

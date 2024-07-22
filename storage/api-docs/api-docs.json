@@ -1285,6 +1285,57 @@
                     }
                 ]
             }
+        },
+        "/api/ticket/statuses": {
+            "get": {
+                "tags": [
+                    "Ticket Status"
+                ],
+                "summary": "Get a list of all the ticket statuses",
+                "operationId": "3f6534744ed17206d7ad110fac0a0ce0",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized Access"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/ticket/statuses/{value}": {
+            "get": {
+                "tags": [
+                    "Ticket Status"
+                ],
+                "summary": "Get details of a ticket status",
+                "operationId": "1cf53d43d12e5b4ac0028a86aee3dd3b",
+                "parameters": [
+                    {
+                        "name": "value",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized Access"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
         }
     },
     "tags": [
@@ -1315,6 +1366,10 @@
         {
             "name": "Sites",
             "description": "Sites"
+        },
+        {
+            "name": "Ticket Status",
+            "description": "Ticket Status"
         }
     ],
     "components": {
