@@ -143,6 +143,81 @@
                 }
             }
         },
+        "/oauth/token": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Issue access token",
+                "operationId": "5e7adc2f813d0e8ac5607190110b4b11",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "grant_type",
+                                    "client_id",
+                                    "client_secret",
+                                    "scope"
+                                ],
+                                "properties": {
+                                    "grant_type": {
+                                        "type": "string",
+                                        "example": "password | client_credentials "
+                                    },
+                                    "client_id": {
+                                        "type": "string",
+                                        "example": "9c80690e-c5b4-44b1-a0b8-9ae617b4e0e6"
+                                    },
+                                    "client_secret": {
+                                        "type": "string",
+                                        "example": "3NSV8PpIZfOi0hyE5qC6TGOJrMVTGcQlIGYhze27"
+                                    },
+                                    "scope": {
+                                        "type": "string",
+                                        "example": ""
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Token issued",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid credentials",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/data": {
             "get": {
                 "tags": [
@@ -1319,7 +1394,8 @@
                     {
                         "name": "value",
                         "in": "path",
-                        "required": true
+                        "required": true,
+                        "example": 7
                     }
                 ],
                 "responses": {

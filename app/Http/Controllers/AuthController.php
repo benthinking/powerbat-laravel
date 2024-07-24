@@ -131,7 +131,53 @@ class AuthController extends Controller
         return response()->json(['token' => $token] , 200);
     }
 
-
+    /**
+     * @OA\Post(
+     *     path="/oauth/token",
+     *     summary="Issue access token",
+     *     tags={"Auth"},
+     *     @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              required={"grant_type", "client_id", "client_secret", "scope"},
+     *              @OA\Property(
+     *                  property="grant_type",
+     *                  type="string",
+     *                  example="password | client_credentials "
+     *              ),
+     *              @OA\Property(
+     *                  property="client_id",
+     *                  type="string",
+     *                  example="9c80690e-c5b4-44b1-a0b8-9ae617b4e0e6"
+     *              ),
+     *              @OA\Property(
+     *                  property="client_secret",
+     *                  type="string",
+     *                  example="3NSV8PpIZfOi0hyE5qC6TGOJrMVTGcQlIGYhze27"
+     *              ),
+     *              @OA\Property(
+     *                  property="scope",
+     *                  type="string",
+     *                  example=""
+     *              )
+     *          )
+     *     ),
+     *     @OA\Response(
+     *          response=200, 
+     *          description="Token issued",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="token" , type="object")
+     *          )
+     *     ),
+     *     @OA\Response(
+     *          response=401, 
+     *          description="Invalid credentials" ,
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message" , type="string")
+     *          )
+     *     )
+     * )
+     */
     public function createToken($email, $password){
 
         $client = Client::where('password_client' , 1)->first();
